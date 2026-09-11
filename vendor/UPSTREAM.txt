@@ -1,0 +1,22 @@
+upstream: https://github.com/0xgoodcrypto/technocore-e2e
+commit:   b71dd7634e85805ec53726d023bee87f5e8ab9e6
+fetched:  2026-09-09T12:56Z
+file:     e2e.py
+sha256:   6a7419a6775a9f8cc48b086599382d9d8c22b896d009e7402e3743dbdd2aa1a4
+
+WHAT THE STARTUP CHECK DOES
+
+technocore_mcp compares vendor/e2e.py against the sha256 above at startup and
+refuses to start if they differ. That detects local modification and corruption
+of this distribution.
+
+WHAT IT DOES NOT DO
+
+It does not detect that upstream has moved on, and it does not detect a value
+replaced together with the copy -- both sides of the comparison live in this
+directory. Upstream freshness is a separate check that compares the commit above
+against upstream main; see docs/DESIGN.md section 4.
+
+DO NOT EDIT vendor/e2e.py. It is a verbatim copy so that the upstream audit
+results apply to these exact bytes. If it needs to change, the change belongs
+upstream, and this file gets a new commit and a new sha256.

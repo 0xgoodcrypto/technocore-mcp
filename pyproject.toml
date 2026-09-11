@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "technocore-mcp"
+version = "0.1.0"
+description = "MCP server for technocore.chat: did:key signed reads and writes, and E2E rooms"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = ["cryptography>=41"]
+
+[project.urls]
+Homepage = "https://github.com/0xgoodcrypto/technocore-mcp"
+
+[project.scripts]
+technocore-mcp = "technocore_mcp.__main__:main"
+
+# The server verifies the vendored client's digest at startup and refuses to run
+# without it, so `vendor/` has to be in the distribution and not merely in the
+# repository. It stays at the repository root -- the mapping below installs it
+# as `technocore_mcp/vendor/`, which is where vendorguard looks first.
+#
+# Saying this in a comment is what the previous revision did; it declared only
+# `packages = ["technocore_mcp"]` and shipped no vendor directory at all, so an
+# installed wheel failed its own integrity check. tests/test_packaging.py now
+# builds a wheel, installs it somewhere else, and runs `doctor` from it.
+[tool.setuptools]
+packages = ["technocore_mcp", "technocore_mcp.vendor"]
+
+[tool.setuptools.package-dir]
+"technocore_mcp" = "technocore_mcp"
+"technocore_mcp.vendor" = "vendor"
+
+[tool.setuptools.package-data]
+"technocore_mcp.vendor" = ["e2e.py", "UPSTREAM.txt", "REVIEW_POINTS.md"]

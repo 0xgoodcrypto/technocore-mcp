@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# Never in the repository: keys, room exports, cursors.
+identity.json
+*.jsonl
+.technocore/
+
+# Our own deployment record: hostnames, usernames and paths of the machines
+# this happens to run on. Useful locally, nobody else's business.
+docs/e2e-test-log.md
